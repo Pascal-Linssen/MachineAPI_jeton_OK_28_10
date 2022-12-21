@@ -1,6 +1,6 @@
 #include <Arduino.h>
-#include <HTTPClient.h>
-#include <WiFi.h>
+// #include <HTTPClient.h>
+// #include <WiFi.h>
 #include <SPIFFS.h>
 #include <ESPAsyncWebServer.h>
 #include <infoconnexion.h>
@@ -8,8 +8,8 @@
 #define wifi_max_try 20        // Nombre de tentative au resau WiFI
 #define duration_deep_sleep 20 // sinon active le deep-sleep jusqu a la prochaine tentative de reconnexion
 
-HTTPClient httpclient;
-WiFiClient client;
+// HTTPClient httpclient;
+// WiFiClient client;
 AsyncWebServer server(80);
 
 void print_wakeup_reason()
@@ -112,7 +112,7 @@ void setup()
 
   //---------------------Config wifi ------------------------
 
-  //Explique la raison du reveil de l ESP32
+  // Explique la raison du reveil de l ESP32
 
   print_wakeup_reason();
 
@@ -127,7 +127,7 @@ void setup()
 
   WiFi.begin(ssid, password);
   Serial.print("Tentative de connexion...");
-  //int count_try = 0;
+  // int count_try = 0;
 
   //----------------------------------------------------Serial------------------------------------------------------
   Serial.begin(115200);
@@ -140,8 +140,8 @@ void setup()
   pinMode(RelaisIR, OUTPUT);
   pinMode(RelaisReset, OUTPUT);
   pinMode(Etat, INPUT_PULLUP);
-  pinMode(DetectJeton1, INPUT_PULLUP);
-  pinMode(Optocoupleur, INPUT_PULLUP);
+  // pinMode(DetectJeton1, INPUT_PULLUP);
+  // pinMode(Optocoupleur, INPUT_PULLUP);
   pinMode(EtatWifi, OUTPUT),
 
       //--------------Affectations état GPIO--------------
@@ -177,11 +177,14 @@ void setup()
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
             { request->send(SPIFFS, "/index.html", "text/html"); });
 
-  server.on("/w3.css", HTTP_GET, [](AsyncWebServerRequest *request)
-            { request->send(SPIFFS, "/w3.css", "text/css"); });
+  server.on("/style.css", HTTP_GET, [](AsyncWebServerRequest *request)
+            { request->send(SPIFFS, "/style.css", "text/css"); });
 
   server.on("/script.js", HTTP_GET, [](AsyncWebServerRequest *request)
             { request->send(SPIFFS, "/script.js", "text/javascript"); });
+
+  server.on("/fond.jpg", HTTP_GET, [](AsyncWebServerRequest *request)
+              { request->send(SPIFFS, "/fond.jpg", "image/jpg"); });
 
   //----------------------------------Etat Wifi---------------------------------------------------------
 
@@ -201,8 +204,7 @@ void setup()
             {
               int val = (jeton1);
               String Jeton = String(val);
-              request->send(200, "text/plain", Jeton);
-            });
+              request->send(200, "text/plain", Jeton); });
 
   //--------------------------------  Affichage de l'état de la machine dans index.htms' ------------------------------
 
@@ -210,40 +212,35 @@ void setup()
             {
               // int val = (varEtat);
               //String OnOff = String(val);
-              request->send(200, "text/plain", OnOff);
-            });
+              request->send(200, "text/plain", OnOff); });
 
   //---------------------------------- Commande du bouton esssorage -----------------------------------------------
 
   server.on("/essorage", HTTP_GET, [](AsyncWebServerRequest *request)
             {
               varessorage = 1;
-              request->send(204);
-            });
+              request->send(204); });
 
   //---------------------------------- Commande du bouton ajout de jetons -----------------------------------------------
 
   server.on("/jeton", HTTP_GET, [](AsyncWebServerRequest *request)
             {
               varjeton = 1;
-              request->send(204);
-            });
+              request->send(204); });
 
   //---------------------------------- Commande du bouton reset -----------------------------------------------
 
   server.on("/reset", HTTP_GET, [](AsyncWebServerRequest *request)
             {
               varReset = 1;
-              request->send(204);
-            });
+              request->send(204); });
 
   //---------------------------------- Commande du bouton stop -----------------------------------------------
 
   server.on("/stop", HTTP_GET, [](AsyncWebServerRequest *request)
             {
               digitalWrite(RelaisReset, HIGH);
-              request->send(204);
-            });
+              request->send(204); });
 
   server.begin();
   Serial.println("===== Serveur actif! ======");
@@ -346,46 +343,46 @@ unsigned long debounceDelay = 50;
 
 */
 
-void Antirebond()
+// void Antirebond()
 
-{
+// {
 
-  int reading = digitalRead(DetectJeton1);
-  //int reading = digitalRead(Optocoupleur);
+//   int reading = digitalRead(DetectJeton1);
+//   //int reading = digitalRead(Optocoupleur);
 
-  if (reading != oldDidStatus)
-  {
-    lastDebounceTime = millis();
-  }
-  if ((millis() - lastDebounceTime) >= debounceDelay)
-  {
-    if (reading != didStatus)
-    {
-      didStatus = reading;
-      Serial.print(F("Detect jetons  : "));
-      Serial.println(didStatus);
+//   if (reading != oldDidStatus)
+//   {
+//     lastDebounceTime = millis();
+//   }
+//   if ((millis() - lastDebounceTime) >= debounceDelay)
+//   {
+//     if (reading != didStatus)
+//     {
+//       didStatus = reading;
+//       Serial.print(F("Detect jetons  : "));
+//       Serial.println(didStatus);
 
-      if (reading == 1)
-      {
-        jeton1 = jeton1 + 1;
-        Serial.println(jeton1);
-        String url = ("http://" + String(HOST_JEEDOM) + "/core/api/jeeApi.php?apikey=" + API_KEY + "&type=virtual&type=virtual&id=" + ID_JETON + "&value=" + (jeton1)); //"&value=" + (etat? "1":"0");
+//       if (reading == 1)
+//       {
+//         jeton1 = jeton1 + 1;
+//         Serial.println(jeton1);
+//         // String url = ("http://" + String(HOST_JEEDOM) + "/core/api/jeeApi.php?apikey=" + API_KEY + "&type=virtual&type=virtual&id=" + ID_JETON + "&value=" + (jeton1)); //"&value=" + (etat? "1":"0");
 
-        httpclient.begin(client, url);
-        httpclient.GET();
-      }
-    }
-  }
-  oldDidStatus = reading;
-}
+//         // httpclient.begin(client, url);
+//         // httpclient.GET();
+//       }
+//     }
+//   }
+//   oldDidStatus = reading;
+// }
 
 void loop()
 
 {
 
-  Antirebond();
+  //   Antirebond();
 
-  //********************************* condition pour changement d'état ON/OFF *******************************
+  //   //********************************* condition pour changement d'état ON/OFF *******************************
 
   varEtat = digitalRead(Etat);
 
@@ -395,50 +392,48 @@ void loop()
 
     jeton1 = 0;
     OnOff = "Machine en service";
-    if (varJeedom == 1)
+    
 
-    //****************** Connexion a API Jeedom si la machine est en service ******************************
+    //   //   ****************** Connexion a API Jeedom si la machine est en service ******************************
 
-    {
-      String url = ("http://" + String(HOST_JEEDOM) + "/core/api/jeeApi.php?apikey=" + API_KEY + "&type=virtual&type=virtual&id=" + ID + "&value=1");
+    // {
+      //   //     String url = ("http://" + String(HOST_JEEDOM) + "/core/api/jeeApi.php?apikey=" + API_KEY + "&type=virtual&type=virtual&id=" + ID + "&value=1");
 
-      httpclient.begin(client, url);
-      httpclient.GET();
+      //   //     httpclient.begin(client, url);
+      //   //     httpclient.GET();
 
-      Serial.println(url);
+      //   //     Serial.println(url);
 
-      varJeedom = 0;
+      // varJeedom = 0;
 
-      String url2 = ("http://" + String(HOST_JEEDOM) + "/core/api/jeeApi.php?apikey=" + API_KEY + "&type=virtual&type=virtual&id=" + ID_JETON + "&value=" + (jeton1)); //"&value=" + (etat? "1":"0");
+      //   //     String url2 = ("http://" + String(HOST_JEEDOM) + "/core/api/jeeApi.php?apikey=" + API_KEY + "&type=virtual&type=virtual&id=" + ID_JETON + "&value=" + (jeton1)); //"&value=" + (etat? "1":"0");
 
-      httpclient.begin(client, url2);
-      httpclient.GET();
+      //   //     httpclient.begin(client, url2);
+      //   //     httpclient.GET();
 
+      //   //   }
+     }
 
-    }
-  }
-
-  else
-
-  {
-
-    OnOff = "Machine en Veille";
-
-    if (varJeedom == 0)
-
-    //*************** Connexion a API Jeedom si la machine est en veille *****************************
+    else
 
     {
-      String url = ("http://" + String(HOST_JEEDOM) + "/core/api/jeeApi.php?apikey=" + API_KEY + "&type=virtual&type=virtual&id=" + ID + "&value=0");
+      OnOff = "Machine en Veille";
 
-      httpclient.begin(client, url);
-      httpclient.GET();
+      // if (varJeedom == 0)
 
-      Serial.println(url);
+        //   //   //*************** Connexion a API Jeedom si la machine est en veille *****************************
 
-      varJeedom = 1;
+        //     // {
+        //   //     String url = ("http://" + String(HOST_JEEDOM) + "/core/api/jeeApi.php?apikey=" + API_KEY + "&type=virtual&type=virtual&id=" + ID + "&value=0");
+
+        //   //     httpclient.begin(client, url);
+        //   //     httpclient.GET();
+
+        //   //     Serial.println(url);
+
+        // varJeedom = 1;
     }
-  }
+  
 
   //********************************* condition pour lancer l'essorage *******************************
 

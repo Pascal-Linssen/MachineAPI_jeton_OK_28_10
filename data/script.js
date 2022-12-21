@@ -35,23 +35,24 @@ setInterval(function getData() {
     xhttp.send();
 }, 2000);
 
-setInterval(function getData() {
-    var xhttp = new XMLHttpRequest();
+// setInterval(function getData() {
+//     var xhttp = new XMLHttpRequest();
 
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("Temperature1").innerHTML = this.responseText;
-        }
-    };
+//     xhttp.onreadystatechange = function () {
+//         if (this.readyState == 4 && this.status == 200) {
+//             document.getElementById("Temperature1").innerHTML = this.responseText;
+//         }
+//     };
     
 
-    xhttp.open("GET", "Temperature", true);
-    xhttp.send();
-}, 2000);
+//     xhttp.open("GET", "Temperature", true);
+//     xhttp.send();
+// }, 2000);
 
 setInterval(function getData() {
     var xhttp = new XMLHttpRequest();
-
+    
+    
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("ValeurEtat").innerHTML = this.responseText;
@@ -62,3 +63,20 @@ setInterval(function getData() {
     xhttp.open("GET", "NombreEtat", true);
     xhttp.send();
 }, 2000);
+
+ let etat = document.getElementById("ValeurEtat");
+// function bascule(etat) {
+    // Quel est l'état actuel ?
+//     setInterval(function getData() {
+//         var xhttp = new XMLHttpRequest();
+        
+        
+        xhttp.onreadystatechange = function () {
+            if (etat == "Machine en service")
+            document.getElementById("etat").style.color = 'red';
+        else
+            document.getElementById(etat).style.color = 'green';
+            }
+   
+
+

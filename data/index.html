@@ -1,154 +1,147 @@
+<!-- <!DOCTYPE html>
+<html lang="fr"> -->
 <!DOCTYPE html>
 <html lang="fr">
-
-
-<!------------------------------------------------------ Header ----------------------------------------------------------->
-
-
-<head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
     <title>Machine N°3 (17 KG)</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8" />
-    <link rel="stylesheet" type="text/css" href="w3.css">
-    <script type="text/javascript" src="script.js"></script>
-</head>
+  </head>
+  <body>
 
-<div class="w3-card w3-serif w3-light-blue w3-padding-small w3-center">
-    <h1>Machine N°3 (17 KG)</h1>
-</div>
+<div class="containerGlobal">
 
-<!------------------------------------------------------Affichage etat machine On/Off----------------------------------------------------------->
+    <div class="titre">
+      <h1>Machine N°3 (17 KG)</h1>
+    </div>
 
+    <!------------------------------------------------------Affichage etat machine On/Off----------------------------------------------------------->
 
-<div class="w3-margin w3-center w3-card w3-padding-20">
+    <div class="etat">
+      <!-- <h3 class="w3-padding">Etat machine <span id="ValeurEtat">0</span></h3>-->
+      <h3><span id="ValeurEtat">Initialisation</span></h3>
+    </div>
+
+    <!------------------------------------------------------Bouton Essorge----------------------------------------------------------->
+    <div class="container">
+      <div class="essorage">
+        <!-- <h3 class="w3-padding">Essorage</h3> -->
+        <!--<button onclick="Buttonessorage()" class="w3-button w3-green w3-large w3-wide" style="width:80%;">Essorage</button>-->
+        <button class="j1" onclick="myFunction()">Essorage</button>
+
+        <script>
+          function myFunction() {
+            // var txt;
+            if (confirm("Confirmer la commande d'essorage ou annuler"))
+              Buttonessorage();
+            //else {
+            //  txt = " ";
+            //   }
+            // document.getElementById().innerHTML = txt;
+          }
+        </script>
+      </div>
+
+      <!------------------------------------------------------Bouton Jetons ----------------------------------------------------------->
+
+      <div class="jetons">
+        <!-- <h3 class="w3-padding">Jetons</h3>-->
+        <!--<button onclick="Buttonjeton()" class="w3-button w3-green w3-large w3-wide" style="width:80%;">Jetons (2)</button>-->
+
+        <button class="j2" onclick="myFunction1()">Demarrer (5 Jetons)</button>
+
+        <script>
+          function myFunction1() {
+            // var txt;
+            if (confirm("Confirmer l'ajout de 5 jetons ou annuler"))
+              Buttonjeton();
+            //  else {
+            //   txt = " ";
+          }
+          // document.getElementById().innerHTML = txt;
+          // }
+        </script>
+
+        <!--<br><br>-->
+      </div>
+
+      <!------------------------------------------------------Bouton Reset ----------------------------------------------------------->
+
+      <div class="relancer">
+        <!--<h3 class="w3-padding"> id=" Temperature1" </h3>
+            <button onclick="Buttonreset()" class="w3-button w3-orange w3-large w3-wide" style="width:80%;">Reset</button>-->
+
+        <button class="j3" onclick="myFunction2()">Relancer</button>
+
+        <script>
+          function myFunction2() {
+            // var txt;
+            if (confirm("Confirmer le reset de la machine  ou annuler"))
+              Buttonreset();
+            //  else {
+            //      txt = " ";
+          }
+          // document.getElementById().innerHTML = txt;
+          //  }
+        </script>
+
+        <!--<br><br>-->
+      </div>
+
+      <!------------------------------------------------------Bouton Stop----------------------------------------------------------->
+
+      <div class="stop">
+        <!-- <h3 class="w3-padding">Stop</h3>
+            <button onclick="Buttonstop()" class="w3-button w3-red w3-large w3-wide" style="width:80%;">Stop</button> -->
+
+        <button class="j4" onclick="myFunction3()">Stop (Hors-service)</button>
+
+        <script>
+          function myFunction3() {
+            // var txt;
+            if (
+              confirm(
+                "Confirmer la mise hors service de la machine  ou annuler"
+              )
+            )
+              Buttonstop();
+            // else {
+            //     txt = " ";
+          }
+          // document.getElementById().innerHTML = txt;
+          //  }
+        </script>
+        <!--<br><br>-->
+      </div>
+    </div>
+    <!------------------------------------------------------ Nombre de jeton(s) inserer ----------------------------------------------------------->
+
+    <div class="affichage_jetons">
+      <h3>Nombre de jeton(s) insérer</h3>
+      <p><span id="valeurJeton">0</span></p>
+    </div>
+
+    <!------------------------------------------------------ Température de l'eau ----------------------------------------------------------->
+
+    <!-- <div class="w3-margin w3-center w3-card w3-padding-20">
+        <h3 class="w3-padding">Température de l'eau</h3>
+        <p class="w3-xlarge"><span id="Temperature1">0</span> C°</p>
+    
+    </div> -->
+
+    <!------------------------------------------------------ Fin ----------------------------------------------------------->
 
     
-    <!-- <h3 class="w3-padding">Etat machine <span id="ValeurEtat">0</span></h3>-->
-     <h3 class="w3-padding"><span id="ValeurEtat">Initialisation</span></h3>
-     
-</div>
-
-
-
-<!------------------------------------------------------Bouton Essorge----------------------------------------------------------->
-
-<div class="w3-margin w3-center w3-card w3-padding-24">
-    <!-- <h3 class="w3-padding">Essorage</h3> -->
-    <!--<button onclick="Buttonessorage()" class="w3-button w3-green w3-large w3-wide" style="width:80%;">Essorage</button>-->
-    <button onclick="myFunction()" class="w3-button w3-green w3-large w3-wide" style="width:80%;">Essorage</button>
-
-
-
-    <script>
-        function myFunction() {
-           // var txt;
-            if (confirm("Confirmer la commande d'essorage ou annuler")) Buttonessorage()
-            //else {
-               //  txt = " ";
-         //   }
-           // document.getElementById().innerHTML = txt;
-        }
-    </script>
-
-
 
 </div>
+<div class="version">
+    <i><a>AutoWash-Remotte V 4.1 sans API</a></i>
+  </div>
+  </body>
 
-<!------------------------------------------------------Bouton Jetons ----------------------------------------------------------->
-
-<div class="w3-margin w3-center w3-card w3-padding-24">
-    <!-- <h3 class="w3-padding">Jetons</h3>-->
-    <!--<button onclick="Buttonjeton()" class="w3-button w3-green w3-large w3-wide" style="width:80%;">Jetons (2)</button>-->
-
-    <button onclick="myFunction1()" class="w3-button w3-light-blue w3-large w3-wide" style="width:80%;">Demarrer (5 Jetons) </button>
-
-
-
-    <script>
-        function myFunction1() {
-           // var txt;
-            if (confirm("Confirmer l'ajout de 5 jetons ou annuler")) Buttonjeton()
-          //  else {
-             //   txt = " ";
-            }
-           // document.getElementById().innerHTML = txt;
-       // }
-    </script>
-
-
-    <!--<br><br>-->
-</div>
-
-<!------------------------------------------------------Bouton Reset ----------------------------------------------------------->
-
-<div class="w3-margin w3-center w3-card w3-padding-24">
-    <!--<h3 class="w3-padding"> id=" Temperature1" </h3>
-        <button onclick="Buttonreset()" class="w3-button w3-orange w3-large w3-wide" style="width:80%;">Reset</button>-->
-
-
-    <button onclick="myFunction2()" class="w3-button w3-orange w3-large w3-wide" style="width:80%;">Relancer</button>
-
-
-
-    <script>
-        function myFunction2() {
-           // var txt;
-            if (confirm("Confirmer le reset de la machine  ou annuler")) Buttonreset()
-          //  else {
-          //      txt = " ";
-            }
-           // document.getElementById().innerHTML = txt;
-      //  }
-    </script>
-
-    <!--<br><br>-->
-</div>
-
-<!------------------------------------------------------Bouton Stop----------------------------------------------------------->
-
-<div class="w3-margin w3-center w3-card w3-padding-24">
-    <!-- <h3 class="w3-padding">Stop</h3>
-        <button onclick="Buttonstop()" class="w3-button w3-red w3-large w3-wide" style="width:80%;">Stop</button> -->
-
-    <button onclick="myFunction3()" class="w3-button w3-red w3-large w3-wide" style="width:80%;">Stop (Hors-service)</button>
-
-
-
-    <script>
-        function myFunction3() {
-           // var txt;
-            if (confirm("Confirmer la mise hors service de la machine  ou annuler")) Buttonstop()
-           // else {
-           //     txt = " ";
-            }
-           // document.getElementById().innerHTML = txt;
-      //  }
-    </script>
-    <!--<br><br>-->
-</div>
-
-<!------------------------------------------------------ Nombre de jeton(s) inserer ----------------------------------------------------------->
-
-<div class="w3-margin w3-center w3-card w3-padding-20">
-    <h3 class="w3-padding">Nombre de jeton(s) insérer</h3>
-    <p class="w3-xlarge"><span id="valeurJeton">0</span></p>
-</div>
-
-<!------------------------------------------------------ Température de l'eau ----------------------------------------------------------->
-
-
-<div class="w3-margin w3-center w3-card w3-padding-20">
-    <h3 class="w3-padding">Température de l'eau</h3>
-    <p class="w3-xlarge"><span id="Temperature1">0</span> C°</p>
-
-</div>
-
-<!------------------------------------------------------ Fin ----------------------------------------------------------->
-
-
-<div class="w3-padding w3-center">
-    <i><a>AutoWash-Remotte V 4.0</a></i>
-</div>
-
-</body>
-
+  <script type="text/javascript" src="script.js"></script>
 </html>
+
+<!------------------------------------------------------ Header ----------------------------------------------------------->
